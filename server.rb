@@ -5,6 +5,17 @@ require 'omniauth-github'
 require 'redis'
 require 'github_api'
 
+require 'dotenv'
+Dotenv.load(".env.#{ENV['RACK_ENV']}", '.env')
+
+%w(
+  REDIS_URL
+  GITHUB_KEY
+  GITHUB_SECRET
+).each do |key|
+  raise "ENV['#{key}'] must be set." if ENV[key].nil? || ENV[key].empty?
+end
+
 class Server < Sinatra::Base
   configure do
     set :sessions, true
@@ -49,7 +60,6 @@ EOS
       <br><br>
       <a href="/">Top</a>
 EOS
-
   end
 
   post '/mapping' do
@@ -64,7 +74,7 @@ EOS
     settings.redis.set 'oauth_token', token
 
     redirect '/orgs'
-EOS
+    EOS
   end
 
   get '/orgs' do

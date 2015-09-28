@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 gem 'rake'
 gem 'slack-notifier'
@@ -8,3 +8,4 @@ gem 'sinatra-contrib'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'redis'
+gem 'dotenv'
